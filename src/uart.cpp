@@ -6,8 +6,8 @@
 #include <string>
 
 #define SERIAL_PORT "/dev/ttyAMA2"
-#define AI_FILE     "./ai.txt"
-#define GPS_FILE    "./gps.txt"
+#define AI_FILE     "/home/root/main_app/ai.txt"
+#define GPS_FILE    "/home/root/main_app/gps.txt"
 
 // Send a message to ESP32 via UART
 void sendMessageToESP32(const std::string &message) {
