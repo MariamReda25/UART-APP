@@ -7,7 +7,6 @@
 
 #define SERIAL_PORT "/dev/ttyAMA2"
 #define AI_FILE     "/home/root/main_app/ai.txt"
-#define GPS_FILE    "/home/root/main_app/gps.txt"
 
 // Send a message to ESP32 via UART
 void sendMessageToESP32(const std::string &message) {
@@ -42,19 +41,14 @@ int main() {
     std::cout << "✅ AI & GPS Notification Monitor Started..." << std::endl;
 
         std::string aiMessage = readFile(AI_FILE);
-        std::string gpsMessage = readFile(GPS_FILE);
 
         if (!aiMessage.empty()) {
-             size_t commaPos = aiMessage.find(',');
-             std::string aiShortMessage = (commaPos != std::string::npos) ? aiMessage.substr(0, commaPos) : aiMessage;
-             sendMessageToESP32(aiShortMessage);
+             sendMessageToESP32(aiMessage);
       }
    
-        if (!gpsMessage.empty()) {
-            sendMessageToESP32(gpsMessage);
-        }
+     
 
-        if (aiMessage.empty() && gpsMessage.empty()) {
+        if (aiMessage.empty()) {
             std::cout << "🔍 No alerts detected. Waiting..." << std::endl;
         }
 
