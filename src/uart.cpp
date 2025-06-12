@@ -15,6 +15,14 @@ void sendMessageToESP32(const std::string &message) {
         std::cerr << "❌ Error: Cannot open UART2!" << std::endl;
         return;
     }
+
+     struct termios options;
+    tcgetattr(serialPort, &options);
+    cfsetispeed(&options, B115200);
+    cfsetospeed(&options, B115200);
+    options.c_cflag = CS8 | CLOCAL | CREAD;
+    tcsetattr(serialPort, TCSANOW, &options);
+    
     write(serialPort, message.c_str(), message.size());
     write(serialPort, "\n", 1);
 
